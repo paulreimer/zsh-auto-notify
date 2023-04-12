@@ -41,7 +41,7 @@ function _auto_notify_message() {
     local platform="$(uname)"
     # Run using echo -e in order to make sure notify-send picks up new line
     local DEFAULT_TITLE="\"%command\" Completed"
-    local DEFAULT_BODY="$(echo -e "Total time: %elapsed seconds\nExit code: %exit_code")"
+    local DEFAULT_BODY="$(echo -e "\nTotal time: %elapsed seconds\nExit code: %exit_code")"
 
     local title="${AUTO_NOTIFY_TITLE:-$DEFAULT_TITLE}"
     local text="${AUTO_NOTIFY_BODY:-$DEFAULT_BODY}"
@@ -50,7 +50,7 @@ function _auto_notify_message() {
     body="$(_auto_notify_format "$text" "$command" "$elapsed" "$exit_code")"
 
     if [[ -n "$AUTO_NOTIFY_COMMAND" ]]; then
-        local COMMAND="${AUTO_NOTIFY_COMMAND//\%text/$title -- $body}"
+        local COMMAND="${AUTO_NOTIFY_COMMAND//\%text/$title$body}"
         echo $COMMAND
         eval $COMMAND
     elif [[ "$platform" == "Linux" ]]; then
