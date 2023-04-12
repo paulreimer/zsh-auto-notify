@@ -162,6 +162,16 @@ then all the values in ``AUTO_NOTIFY_IGNORE`` are not used.
 
     export AUTO_NOTIFY_WHITELIST=("apt-get" "docker")
 
+**Running Custom Commands**
+
+By default ``notify-send`` is used to send notifications on Linux and ``osascript`` is used on MacOSX.
+However the command that is executed can be configured by setting the ``AUTO_NOTIFY_COMMAND`` variable.
+Specify where the text should be placed using the ``%text`` marker. An example can be seen below:
+
+::
+
+    export AUTO_NOTIFY_COMAND="my-fancy-notifier -rd -t20 \"%text\""
+
 Temporarily Disabling Notifications
 -----------------------------------
 

@@ -49,7 +49,11 @@ function _auto_notify_message() {
     title="$(_auto_notify_format "$title" "$command" "$elapsed" "$exit_code")"
     body="$(_auto_notify_format "$text" "$command" "$elapsed" "$exit_code")"
 
-    if [[ "$platform" == "Linux" ]]; then
+    if [[ -n "$AUTO_NOTIFY_COMMAND" ]]; then
+        local COMMAND="${AUTO_NOTIFY_COMMAND//\%text/$title -- $body}"
+        echo $COMMAND
+        eval $COMMAND
+    elif [[ "$platform" == "Linux" ]]; then
         local urgency="normal"
         if [[ "$exit_code" != "0" ]]; then
             urgency="critical"
