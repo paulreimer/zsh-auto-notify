@@ -51,8 +51,7 @@ function _auto_notify_message() {
 
     if [[ -n "$AUTO_NOTIFY_COMMAND" ]]; then
         local COMMAND="${AUTO_NOTIFY_COMMAND//\%text/$title$body}"
-        echo $COMMAND
-        eval $COMMAND
+        eval $COMMAND 1>/dev/null
     elif [[ "$platform" == "Linux" ]]; then
         local urgency="normal"
         if [[ "$exit_code" != "0" ]]; then
